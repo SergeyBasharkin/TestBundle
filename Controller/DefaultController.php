@@ -8,6 +8,14 @@ class DefaultController extends Controller
 {
     public function indexAction()
     {
-        return $this->render('TestBundle:Default:index.html.twig');
+         $metadata = $this->getDoctrine()->getManager()->getMetadataFactory()->getAllMetadata();
+
+        $choices = [];
+        foreach($metadata as $classMeta) {
+            $choices[] = $classMeta->getName(); // Entity FQCN
+        }
+
+        // replace this example code with whatever you need
+        return new Response(json_encode($choices));
     }
 }
