@@ -18,8 +18,7 @@
   },
   "autoload": {
     "psr-4": {
-      "Test\\TestBundle\\": "src/Test/TestBundle",
-      "classmap": [ "app/AppKernel.php", "app/AppCache.php" ]
+      "Test\\TestBundle\\": "src/Test/TestBundle"
     }
   },
   "repositories": [
