@@ -1,3 +1,4 @@
-test_homepage:
-    path:     /
-    defaults: { _controller: TestBundle:Default:index }
+controller:
+  resource: ../../Controller/
+  type: annotation
+

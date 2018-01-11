@@ -1,4 +1,6 @@
 services:
+  Routing\RestLoader:
+    tags: [routing.loader   ]
 #    test.example:
 #        class: Test\TestBundle\Example
 #        arguments: ["@service_id", "plain_value", "%parameter%"]
