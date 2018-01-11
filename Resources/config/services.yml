@@ -1,5 +1,5 @@
 services:
-  Routing\RestLoader:
+  Test\TestBundle\Routing\RestLoader:
     tags: [routing.loader   ]
 #    test.example:
 #        class: Test\TestBundle\Example
