@@ -15,7 +15,8 @@ class DefaultController extends Controller
 
         $choices = [];
         foreach($metadata as $classMeta) {
-            $choices[] = $classMeta->getName(); // Entity FQCN
+            $choices[] = $classMeta->getName();// Entity FQCN
+            $choices["filelds"] = $this->getDoctrine()->getManager()->getClassMetadata($classMeta->getName())->getFieldNames();
         }
 
         // replace this example code with whatever you need
