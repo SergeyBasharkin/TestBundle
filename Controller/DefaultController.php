@@ -34,7 +34,7 @@ class DefaultController extends Controller
             case "GET":
                 $response = $this->getById($entity, $id);
                 break;
-            case "UPDATE":
+            case "PATCH":
                 $response = $this->saveOrUpdate($entity,json_decode($request->getContent(), true), $id);
                 break;
             case "DELETE":
