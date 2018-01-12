@@ -36,6 +36,6 @@ class DefaultController extends Controller
             }
         }
 
-        return new Response($repository->findAll());
+        return new Response(json_encode($repository->findAll()));
     }
 }
