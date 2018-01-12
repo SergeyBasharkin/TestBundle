@@ -45,15 +45,8 @@ class RestLoader extends Loader
         $router = $this->container->get('router');
         /** @var $collection \Symfony\Component\Routing\RouteCollection */
 
-        $collection = new RouteCollection();
-
-        $resource = __DIR__.'/app/config/routing.yml';
-        $type = 'yaml';
-
-        $importedRoutes = $this->import($resource, $type);
-
-        $collection->addCollection($importedRoutes);
-        dump($collection);
+        dump($router->match("/home"));
+        dump($router->match("/extra/"));
 //
 //        $routes = $router->getRouteCollection();
 //        dump($router->getRouteCollection());
