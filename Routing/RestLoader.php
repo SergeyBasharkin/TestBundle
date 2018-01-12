@@ -52,8 +52,12 @@ class RestLoader extends Loader
         /** @var $collection \Symfony\Component\Routing\RouteCollection */
 
         $path = $this->locator->locate($resource);
+
+        dump($path);
+        dump($resource);
+
         try {
-            $config = Yaml::parse(file_get_contents($path));
+            $config = Yaml::parse(file_get_contents($resource));
         } catch (ParseException $e) {
             throw new \InvalidArgumentException(sprintf('The file "%s" does not contain valid YAML.', $path), 0, $e);
         }
@@ -62,8 +66,6 @@ class RestLoader extends Loader
 
         dump($config);
         dump($collection);
-        var_dump($config);
-        var_dump($collection);
 //
 //        $routes = $router->getRouteCollection();
 //        dump($router->getRouteCollection());
