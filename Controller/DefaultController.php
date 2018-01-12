@@ -32,6 +32,7 @@ class DefaultController extends Controller
         dump($request->getMethod());
         dump($id);
         dump($entity);
+        return new Response("hi");
     }
 
     public function listEntities($entity)
