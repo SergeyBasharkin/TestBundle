@@ -10,6 +10,7 @@ namespace Test\TestBundle\Routing;
 
 
 use Psr\Log\LoggerInterface;
+use Symfony\Component\Config\Definition\Exception\Exception;
 use Symfony\Component\Config\Loader\Loader;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\Routing\RouteCollection;
@@ -40,8 +41,7 @@ class RestLoader extends Loader
 
         $routes = new RouteCollection();
 
-        var_dump($this->container->get("doctrine"));
-        $this->logger->error($this->container->get("doctrine"));
+        throw new Exception(json_encode($this->container->get('doctrine')));
 
         //        // prepare a new route
 //        $path = '/extra/{id}';
