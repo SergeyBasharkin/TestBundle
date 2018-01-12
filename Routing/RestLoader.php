@@ -58,7 +58,7 @@ class RestLoader extends Loader
         $routes->add($routeName, $route);
 //
         $this->loaded = true;
-        $this->logger->error($this->container->get('doctrine'));
+//        $this->logger->error($this->container->get('doctrine'));
         var_dump($this->container);
         dump($this->container->get('dorctine'));
 
