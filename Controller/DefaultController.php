@@ -111,7 +111,7 @@ class DefaultController extends Controller
     private function delete($entity, $id)
     {
         $repository = $this->initRepository($entity);
-        $entityClass = $repository->findOneBy(array(array("id" => $id)));
+        $entityClass = $repository->findOneBy(array("id" => $id));
         $em = $this->getDoctrine()->getManager();
         $em->remove($entityClass);
         $em->flush();
