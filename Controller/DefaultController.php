@@ -34,6 +34,11 @@ class DefaultController extends Controller
             case "GET":
                 $response = $this->getById($entity, $id);
                 break;
+            case "UPDATE":
+                $response = $this->saveOrUpdate($entity,json_decode($request->getContent(), true), $id);
+                break;
+            case "DELETE":
+                $response = $this->delete($entity, $id);
         }
         return $response;
     }
@@ -46,7 +51,7 @@ class DefaultController extends Controller
                 $response = $this->findAll($entity);
                 break;
             case "POST":
-                $response = $this->postObject($entity, json_decode($request->getContent(), true));
+                $response = $this->saveOrUpdate($entity, json_decode($request->getContent(), true));
                 break;
         }
         return $response;
@@ -54,15 +59,19 @@ class DefaultController extends Controller
 
     private function initRepository($entity)
     {
+        return $this->getDoctrine()->getRepository($this->getEntityClassName($entity));
+    }
+
+    private function getEntityClassName($entity){
         $metadata = $this->getDoctrine()->getManager()->getMetadataFactory()->getAllMetadata();
-        $repository = null;
+        $name = null;
         foreach ($metadata as $classMetadata) {
             $pathArray = explode("\\", $classMetadata->getName());
             if ($entity === $pathArray[count($pathArray) - 1]) {
-                $repository = $this->getDoctrine()->getRepository($classMetadata->getName());
+                $name = $classMetadata->getName();
             }
         }
-        return $repository;
+        return $name;
     }
 
     private function getById($entity, $id)
@@ -77,12 +86,17 @@ class DefaultController extends Controller
         return new Response($this->serializer->serialize($repository->findAll(), 'json'));
     }
 
-    private function postObject($entity, $body)
+    private function saveOrUpdate($entity, $body, $id = null)
     {
         $repository = $this->initRepository($entity);
         $className = $repository->getClassName();
         $cl = $this->getDoctrine()->getManager()->getMetadataFactory()->getMetadataFor($repository->getClassName());
-        $entityClass = new $className;
+        $entityClass = null;
+        if (is_null($id)){
+            $entityClass = new $className;
+        }else{
+            $entityClass = $repository->findOneBy(array("id" => $id));
+        }
         foreach ($cl->getFieldNames() as $field) {
             if ($cl->hasField($field) && !$cl->isIdentifier($field)) {
                 $set = 'set' . ucfirst($field);
@@ -91,6 +105,16 @@ class DefaultController extends Controller
         }
         $this->getDoctrine()->getManager()->persist($entityClass);
         $this->getDoctrine()->getManager()->flush();
+        return new Response("ok");
+    }
+
+    private function delete($entity, $id)
+    {
+        $repository = $this->initRepository($entity);
+        $entityClass = $repository->findOneBy(array(array("id" => $id)));
+        $em = $this->getDoctrine()->getManager();
+        $em->remove($entityClass);
+        $em->flush();
         return new Response("ok");
     }
 }
