@@ -40,8 +40,10 @@ class RestLoader extends Loader
 
         $routes = new RouteCollection();
 
-        dump($this->container->get('doctrine'));
-//        // prepare a new route
+        var_dump($this->container->get("doctrine"));
+        $this->logger->error($this->container->get("doctrine"));
+
+        //        // prepare a new route
 //        $path = '/extra/{id}';
 //        $defaults = array(
 //            '_controller' => 'App\Controller\ExtraController::extra',
