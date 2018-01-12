@@ -27,31 +27,29 @@ class DefaultController extends Controller
         $this->serializer = new Serializer($normalizers, $encoders);
     }
 
-    public function indexAction()
+    public function indexAction($entity, $id, Request $request)
     {
-        $metadata = $this->getDoctrine()->getManager()->getMetadataFactory()->getAllMetadata();
-
-        $choices = [];
-        foreach ($metadata as $classMeta) {
-            $choices[] = $classMeta->getName();// Entity FQCN
-            $choices["filelds"] = $this->getDoctrine()->getManager()->getClassMetadata($classMeta->getName())->getFieldNames();
-        }
-
-        // replace this example code with whatever you need
-        return new Response(json_encode($choices));
+        dump($request->getMethod());
+        dump($id);
+        dump($entity);
     }
 
     public function listEntities($entity)
+    {
+        $repository = $this->initRepository($entity);
+        return new Response($this->serializer->serialize($repository->findAll(), 'json'));
+    }
+
+    private function initRepository($entity)
     {
         $metadata = $this->getDoctrine()->getManager()->getMetadataFactory()->getAllMetadata();
         $repository = null;
         foreach ($metadata as $classMetadata) {
             $pathArray = explode("\\", $classMetadata->getName());
-            if ($entity === $pathArray[count($pathArray) - 1]){
+            if ($entity === $pathArray[count($pathArray) - 1]) {
                 $repository = $this->getDoctrine()->getRepository($classMetadata->getName());
             }
         }
-
-        return new Response($this->serializer->serialize($repository->findAll(), 'json'));
+        return $repository;
     }
 }
