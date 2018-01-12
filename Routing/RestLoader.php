@@ -10,6 +10,8 @@ namespace Test\TestBundle\Routing;
 
 
 use Psr\Log\LoggerInterface;
+use SensioLabs\Security\Exception\RuntimeException;
+use Symfony\Component\Config\Exception\FileLoaderLoadException;
 use Symfony\Component\Config\FileLocatorInterface;
 use Symfony\Component\Config\Loader\Loader;
 use Symfony\Component\DependencyInjection\ContainerInterface;
@@ -40,6 +42,11 @@ class RestLoader extends Loader
     {
         if (true === $this->loaded) {
             throw new \RuntimeException('Do not add the "rest" loader twice');
+        }
+        try {
+            $this->resolve($resource, $type);
+        } catch (FileLoaderLoadException $e) {
+            dump($e);
         }
         $routes = new RouteCollection();
         $path = '/{entity}/{id}';
