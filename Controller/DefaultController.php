@@ -38,10 +38,18 @@ class DefaultController extends Controller
         return $response;
     }
 
-    public function listEntities($entity)
+    public function listEntities($entity, Request $request)
     {
-        $repository = $this->initRepository($entity);
-        return new Response($this->serializer->serialize($repository->findAll(), 'json'));
+        $response = new Response("some error");
+        switch ($request->getMethod()){
+            case "GET":
+                $response = $this->findAll($entity);
+                break;
+            case "POST":
+                $response = $this->postObject($entity, json_decode($request->getContent(), true));
+                break;
+        }
+        return $response;
     }
 
     private function initRepository($entity)
@@ -60,5 +68,26 @@ class DefaultController extends Controller
     private function getById($entity, $id){
         $repository = $this->initRepository($entity);
         return new Response($this->serializer->serialize($repository->findBy(array("id" => $id)), 'json'));
+    }
+
+    private function findAll($entity)
+    {
+        $repository = $this->initRepository($entity);
+        return new Response($this->serializer->serialize($repository->findAll(), 'json'));
+    }
+
+    private function postObject($entity, $body)
+    {
+        $repository = $this->initRepository($entity);
+        $fields =  $this->getDoctrine()->getManager()->getMetadataFactory()->getMetadataFor($repository->getClassName())->getFieldNames();
+        $entityClass = new $repository->getClassName();
+        foreach ($fields as $field){
+            $set = 'set'.ucfirst($field);
+            $entityClass->$set($body[$field]);
+        }
+        $entityClass->setId(null);
+
+        $this->getDoctrine()->getManager()->persist($entityClass);
+        return new Response("ok");
     }
 }
