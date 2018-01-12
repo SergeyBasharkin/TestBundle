@@ -42,7 +42,6 @@ class RestLoader extends Loader
 
         $routes = new RouteCollection();
 
-//        throw new Exception(json_encode($this->container->get('doctrine')));
 
         //        // prepare a new route
         $path = '/extra/';
@@ -59,6 +58,8 @@ class RestLoader extends Loader
         $routes->add($routeName, $route);
 //
         $this->loaded = true;
+                throw new Exception(json_encode($this->container->get('doctrine')));
+
 
         return $routes;
     }
