@@ -30,7 +30,7 @@ class DefaultController extends Controller
     public function indexAction($entity, $id, Request $request)
     {
         $response = new Response("some error");
-        switch ($request->getMethod()){
+        switch ($request->getMethod()) {
             case "GET":
                 $response = $this->getById($entity, $id);
                 break;
@@ -41,7 +41,7 @@ class DefaultController extends Controller
     public function listEntities($entity, Request $request)
     {
         $response = new Response("some error");
-        switch ($request->getMethod()){
+        switch ($request->getMethod()) {
             case "GET":
                 $response = $this->findAll($entity);
                 break;
@@ -65,7 +65,8 @@ class DefaultController extends Controller
         return $repository;
     }
 
-    private function getById($entity, $id){
+    private function getById($entity, $id)
+    {
         $repository = $this->initRepository($entity);
         return new Response($this->serializer->serialize($repository->findBy(array("id" => $id)), 'json'));
     }
@@ -80,14 +81,14 @@ class DefaultController extends Controller
     {
         $repository = $this->initRepository($entity);
         $className = $repository->getClassName();
-        $fields =  $this->getDoctrine()->getManager()->getMetadataFactory()->getMetadataFor($repository->getClassName())->getFieldNames();
+        $cl = $this->getDoctrine()->getManager()->getMetadataFactory()->getMetadataFor($repository->getClassName());
         $entityClass = new $className;
-        foreach ($fields as $field){
-            $set = 'set'.ucfirst($field);
-            $entityClass->$set($body[$field]);
+        foreach ($cl->getFieldNames() as $field) {
+            if ($cl->hasField($field) && !$cl->isIdentifier($field)) {
+                $set = 'set' . ucfirst($field);
+                $entityClass->$set($body[$field]);
+            }
         }
-        $entityClass->setId(null);
-
         $this->getDoctrine()->getManager()->persist($entityClass);
         return new Response("ok");
     }
