@@ -79,7 +79,7 @@ class DefaultController extends Controller
     private function postObject($entity, $body)
     {
         $repository = $this->initRepository($entity);
-        $className = $repository->getClassName()
+        $className = $repository->getClassName();
         $fields =  $this->getDoctrine()->getManager()->getMetadataFactory()->getMetadataFor($repository->getClassName())->getFieldNames();
         $entityClass = new $className;
         foreach ($fields as $field){
