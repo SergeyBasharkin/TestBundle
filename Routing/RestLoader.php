@@ -15,6 +15,7 @@ use Symfony\Component\Config\Loader\Loader;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\Routing\Route;
 use Symfony\Component\Routing\RouteCollection;
+use Symfony\Component\Routing\Router;
 
 class RestLoader extends Loader
 {
@@ -40,8 +41,11 @@ class RestLoader extends Loader
             throw new \RuntimeException('Do not add the "rest" loader twice');
         }
 
-        $routes = new RouteCollection();
+        /** @var Router $router */
+        $router = $this->container->get('router');
 
+        $routes = $router->getRouteCollection();
+        dump($routes);
 
         //        // prepare a new route
         $path = '/extra/';
@@ -59,8 +63,6 @@ class RestLoader extends Loader
 //
         $this->loaded = true;
 //        $this->logger->error($this->container->get('doctrine'));
-        var_dump($this->container);
-        dump($this->container->get('dorctine'));
 
         return $routes;
     }
