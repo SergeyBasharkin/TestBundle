@@ -57,6 +57,7 @@ class RestLoader extends Loader
 //        );
         $route = new Route($path, array('_controller' => 'Test\TestBundle\Controller\DefaultController::indexAction'));
 //
+        $routes = new RouteCollection();
 //        // add the new route to the route collection
         $routeName = 'extraRoute';
         $routes->add($routeName, $route);
