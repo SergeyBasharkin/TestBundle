@@ -44,6 +44,8 @@ class RestLoader extends Loader
             throw new \RuntimeException('Do not add the "rest" loader twice');
         }
         try {
+            $this->logger->info("test");
+            $this->logger->error("test");
             $this->resolve($resource, $type);
         } catch (FileLoaderLoadException $e) {
             dump($e);
