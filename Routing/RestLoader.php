@@ -44,10 +44,9 @@ class RestLoader extends Loader
         /** @var Router $router */
         $router = $this->container->get('router');
         /** @var $collection \Symfony\Component\Routing\RouteCollection */
-        $collection = $router->getRouteCollection();
-        $allRoutes = $collection->all();
 
-        dump($allRoutes);
+
+        dump($router);
 
 //
 //        $routes = $router->getRouteCollection();
