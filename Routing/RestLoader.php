@@ -42,10 +42,10 @@ class RestLoader extends Loader
         }
 
         /** @var Router $router */
-        $router = $this->container->get('router');
-
-        $routes = $router->getRouteCollection();
-        dump($routes);
+//        $router = $this->container->get('router');
+//
+//        $routes = $router->getRouteCollection();
+//        dump($routes);
 
         //        // prepare a new route
         $path = '/extra/';
