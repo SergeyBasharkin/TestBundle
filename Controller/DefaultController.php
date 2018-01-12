@@ -29,10 +29,13 @@ class DefaultController extends Controller
 
     public function indexAction($entity, $id, Request $request)
     {
-        dump($request->getMethod());
-        dump($id);
-        dump($entity);
-        return new Response("hi");
+        $response = new Response("some error");
+        switch ($request->getMethod()){
+            case "GET":
+                $response = $this->getById($entity, $id);
+                break;
+        }
+        return $response;
     }
 
     public function listEntities($entity)
@@ -52,5 +55,10 @@ class DefaultController extends Controller
             }
         }
         return $repository;
+    }
+
+    private function getById($entity, $id){
+        $repository = $this->initRepository($entity);
+        return new Response($this->serializer->serialize($repository->findBy(array("id" => $id)), 'json'));
     }
 }
