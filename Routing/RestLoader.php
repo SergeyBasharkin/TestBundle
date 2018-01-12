@@ -13,6 +13,7 @@ use Psr\Log\LoggerInterface;
 use Symfony\Component\Config\Definition\Exception\Exception;
 use Symfony\Component\Config\Loader\Loader;
 use Symfony\Component\DependencyInjection\ContainerInterface;
+use Symfony\Component\Routing\Route;
 use Symfony\Component\Routing\RouteCollection;
 
 class RestLoader extends Loader
@@ -41,23 +42,23 @@ class RestLoader extends Loader
 
         $routes = new RouteCollection();
 
-        throw new Exception(json_encode($this->container->get('doctrine')));
+//        throw new Exception(json_encode($this->container->get('doctrine')));
 
         //        // prepare a new route
-//        $path = '/extra/{id}';
+        $path = '/extra/';
 //        $defaults = array(
 //            '_controller' => 'App\Controller\ExtraController::extra',
 //        );
 //        $requirements = array(
 //            'id' => '\d+',
 //        );
-//        $route = new Route($path, $defaults, $requirements);
+        $route = new Route($path, array('_controller' => 'Test\TestBundle\Controller\DefaultController::indexAction'));
 //
 //        // add the new route to the route collection
-//        $routeName = 'extraRoute';
-//        $routes->add($routeName, $route);
+        $routeName = 'extraRoute';
+        $routes->add($routeName, $route);
 //
-//        $this->loaded = true;
+        $this->loaded = true;
 
         return $routes;
     }
