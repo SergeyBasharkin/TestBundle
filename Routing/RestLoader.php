@@ -47,7 +47,7 @@ class RestLoader extends Loader
 
         $collection = new RouteCollection();
 
-        $resource = __DIR__.'/app/config/routing.yaml';
+        $resource = __DIR__.'/app/config/routing.yml';
         $type = 'yaml';
 
         $importedRoutes = $this->import($resource, $type);
