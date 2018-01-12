@@ -62,6 +62,8 @@ class RestLoader extends Loader
 
         dump($config);
         dump($collection);
+        var_dump($config);
+        var_dump($collection);
 //
 //        $routes = $router->getRouteCollection();
 //        dump($router->getRouteCollection());
