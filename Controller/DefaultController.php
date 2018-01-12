@@ -35,5 +35,7 @@ class DefaultController extends Controller
                 dump($repository);
             }
         }
+
+        return new Response(json_encode("hi"));
     }
 }
