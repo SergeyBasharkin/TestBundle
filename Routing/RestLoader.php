@@ -9,6 +9,7 @@
 namespace Test\TestBundle\Routing;
 
 
+use Psr\Log\LoggerInterface;
 use Symfony\Component\Config\Loader\Loader;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\Routing\RouteCollection;
@@ -18,13 +19,15 @@ class RestLoader extends Loader
 
     private $loaded = false;
     private $container;
+    private  $logger;
 
     /**
      * RestLoader constructor.
      * @param $container
      */
-    public function __construct(ContainerInterface $container)
+    public function __construct(ContainerInterface $container, LoggerInterface $logger)
     {
+        $this->logger=$logger;
         $this->container = $container;
     }
 
