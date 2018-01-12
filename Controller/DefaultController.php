@@ -90,6 +90,7 @@ class DefaultController extends Controller
             }
         }
         $this->getDoctrine()->getManager()->persist($entityClass);
+        $this->getDoctrine()->getManager()->flush();
         return new Response("ok");
     }
 }
