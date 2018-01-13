@@ -6,6 +6,7 @@ use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\HttpKernel\DependencyInjection\Extension;
 use Symfony\Component\DependencyInjection\Loader;
+use Symfony\Component\Routing\Router;
 use Test\TestBundle\Exception\MultipleRouteException;
 use Test\TestBundle\Helper\Utils;
 
@@ -16,6 +17,9 @@ use Test\TestBundle\Helper\Utils;
  */
 class TestExtension extends Extension
 {
+    /**
+     * @var Router
+     */
     private $router;
     /**
      * {@inheritdoc}
@@ -25,7 +29,7 @@ class TestExtension extends Extension
         $configuration = new Configuration();
         $config = $this->processConfiguration($configuration, $configs);
         $container->setParameter('test_rest', $config);
-        $this->router = $container->get('router');
+        $this->router = $container->get(Router::class);
         $routes = $this->router->getRouteCollection()->all();
         $entitiesNames = $this->getListEntitiesNames($container);
         if (!empty($entitiesNames)) {
