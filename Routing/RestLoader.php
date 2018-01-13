@@ -45,7 +45,7 @@ class RestLoader extends Loader
             '/ent_test_rest',
             array('_controller' => 'Test\TestBundle\Controller\DefaultController::entities')
         );
-        $routes->add('entRoute', $entRoute);
+        $routes->add('asdasd', $entRoute);
 //
         if (!empty($entityNames)) {
             var_dump($entityNames);
