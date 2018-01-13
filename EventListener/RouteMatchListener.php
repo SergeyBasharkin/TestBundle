@@ -33,10 +33,12 @@ class RouteMatchListener
     public function onKernelRequest(GetResponseEvent $event)
     {
         $routes = $this->router->getRouteCollection()->all();
+        date($routes);
         $entitiesNames = $this->entityService->getListEntitiesNames();
         $routeCollisions = array();
         foreach ($routes as $key => $route) {
             if ($key !== 'listEntitiesRoute' && $key !== 'entityRoute') {
+                dump($route);
                 $explodedPath = Utils::parsePath($route->getPath());
                 if (count($explodedPath) >= 3) continue;
                 if (in_array($explodedPath[0], $entitiesNames)) {
