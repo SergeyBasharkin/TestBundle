@@ -43,22 +43,24 @@ class RestLoader extends Loader
         if (true === $this->loaded) {
             throw new \RuntimeException('Do not add the "rest" loader twice');
         }
-        try {
-            $this->resolve($resource, $type);
-        } catch (FileLoaderLoadException $e) {
-            dump($e);
-            $this->logger->error("test");
-        }
         $routes = new RouteCollection();
-        $path = '/{entity}/{id}';
-        $listPath='/{entity}/';
+
+        $pathRUD = '/{entity}/{id}';
+        $pathCR ='/{entity}/';
         $requirements = array(
-            'parameter' => '\d+',
+            'id' => '\d+',
         );
-        $route = new Route($path, array('_controller' => 'Test\TestBundle\Controller\DefaultController::indexAction'), $requirements);
-        $routeList = new Route($listPath,array('_controller' => 'Test\TestBundle\Controller\DefaultController::listEntities'));
-        $routes->add('entityRoute', $route);
-        $routes->add('listEntitiesRoute', $routeList);
+        $defaultsRUD = array(
+            '_controller' => 'Test\TestBundle\Controller\DefaultController::indexAction'
+        );
+        $defaultsCR = array(
+            '_controller' => 'Test\TestBundle\Controller\DefaultController::listEntities'
+        );
+
+        $routeRUD = new Route($pathRUD, $defaultsRUD, $requirements);
+        $routeCR = new Route($pathCR,$defaultsCR);
+        $routes->add('entityRoute', $routeRUD);
+        $routes->add('listEntitiesRoute', $routeCR);
 
         $this->loaded = true;
 
