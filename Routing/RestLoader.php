@@ -41,15 +41,15 @@ class RestLoader extends Loader
         $routes = new RouteCollection();
         $entityNames = $this->entityService->getListEntitiesNames();
         var_dump(empty($entityNames));
-        if (empty($entityNames)) {
-            $entRoute = new Route(
-                '/ent_test_rest',
-                array('_controller' => 'Test\TestBundle\Controller\DefaultController::entities')
-            );
-            $routes->add('entRoute', $entRoute);
-
-            return $routes;
-        } else {
+//        if (empty($entityNames)) {
+//            $entRoute = new Route(
+//                '/ent_test_rest',
+//                array('_controller' => 'Test\TestBundle\Controller\DefaultController::entities')
+//            );
+//            $routes->add('entRoute', $entRoute);
+//
+//            return $routes;
+//        } else {
             $regexpNames = $this->entityNamesToRequirements($entityNames);
 
             $pathRUD = '/{entity}/{id}';
@@ -73,7 +73,7 @@ class RestLoader extends Loader
             $this->loaded = true;
 
             return $routes;
-        }
+//        }
     }
 
     /**
