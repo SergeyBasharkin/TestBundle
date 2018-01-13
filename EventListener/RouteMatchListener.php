@@ -48,8 +48,6 @@ class RouteMatchListener
                 }
             }
         }
-        dump($routeCollisions);
-        dump(json_encode($routeCollisions));
         if (!empty($routeCollisions)) {
             throw  new MultipleRouteException($routeCollisions);
         }

@@ -16,7 +16,10 @@ class MultipleRouteException extends HttpException
 {
     public function __construct(array $routes, \Exception $previous = null, array $headers = array(), $code = 0)
     {
-        $message = 'collision in routes: '.json_encode($routes);
+        $message = 'collision in routes: ';
+        foreach ($routes as $route){
+            $message .= $route->getPath();
+        }
         parent::__construct(500, $message, $previous, $headers, $code);
     }
 
