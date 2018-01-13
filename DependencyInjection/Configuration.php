@@ -23,7 +23,7 @@ class Configuration implements ConfigurationInterface
         $rootNode
             ->children()
                 ->arrayNode('blacklist')
-                    ->addDefaultChildrenIfNoneSet(array('blacklist' => array()))
+                    ->scalarPrototype()->defaultNull()->end()
                 ->end()
             ->end()
         ;
