@@ -9,26 +9,27 @@
 namespace Test\TestBundle\Service;
 
 
+use Doctrine\Bundle\DoctrineBundle\Registry;
 use Psr\Container\ContainerInterface;
 use Symfony\Component\Routing\Router;
 
 class EntityService
 {
-    private $container;
+    private $doctrine;
 
     /**
      * EntityService constructor.
      * @param ContainerInterface $container
      */
-    public function __construct(ContainerInterface $container)
+    public function __construct(Registry $doctrine)
     {
-        $this->container = $container;
+        $this->doctrine = $doctrine;
     }
 
 
     public function getListEntitiesNames()
     {
-        $metadata = $this->container->get('doctrine')->getManager()->getMetadataFactory()->getAllMetadata();
+        $metadata = $this->doctrine->getManager()->getMetadataFactory()->getAllMetadata();
         $names = array();
         foreach ($metadata as $classMetadata) {
             $pathArray = explode("\\", $classMetadata->getName());
