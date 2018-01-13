@@ -63,9 +63,12 @@ class RestLoader extends Loader
 
             $this->loaded = true;
 
-            return $routes;
         }
-
+        $entRoute = new Route(
+            '/ent_test_rest',
+            array('_controller' => 'Test\TestBundle\Controller\DefaultController::entities')
+        );
+        $routes->add('entRoute', $entRoute);
         return $routes;
     }
 

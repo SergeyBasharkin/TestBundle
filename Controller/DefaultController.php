@@ -49,4 +49,8 @@ class DefaultController extends Controller
         }
         return $response;
     }
+
+    public function entities(){
+        return new Response(json_encode($this->entityService->getListEntitiesNames()));
+    }
 }
