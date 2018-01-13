@@ -42,7 +42,6 @@ class RestLoader extends Loader
         $entityNames = $this->entityService->getListEntitiesNames();
         $regexpNames = $this->entityNamesToRequirements($entityNames);
 
-        $this->entityService->testRouter();
         $pathRUD = '/{entity}/{id}';
         $pathCR ='/{entity}/';
         $requirements = array(

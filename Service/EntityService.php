@@ -36,11 +36,4 @@ class EntityService
         }
         return $names;
     }
-
-    public function testRouter(){
-
-        /** @var Router $router */
-        $router = $this->container->get('router');
-        dump($router->getRouteCollection());
-    }
 }
