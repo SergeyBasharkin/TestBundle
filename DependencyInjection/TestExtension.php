@@ -21,8 +21,8 @@ class TestExtension extends Extension
     {
         $configuration = new Configuration();
         $config = $this->processConfiguration($configuration, $configs);
-
-        $container->set('rest_test.blacklist', $config['blacklist']);
+        var_dump($config);
+//        $container->set('rest_test.blacklist', $config['blacklist']);
         $loader = new Loader\YamlFileLoader($container, new FileLocator(__DIR__.'/../Resources/config'));
         $loader->load('services.yml');
     }
