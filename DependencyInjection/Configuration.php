@@ -18,14 +18,10 @@ class Configuration implements ConfigurationInterface
     public function getConfigTreeBuilder()
     {
         $treeBuilder = new TreeBuilder();
-        $rootNode = $treeBuilder->root('test');
+        $rootNode = $treeBuilder->root('test_rest');
 
-        $rootNode
-            ->children()
-                ->arrayNode('blacklist')->defaultNull()->end()
-                ->end()
-            ->end()
-        ;
+        $rootNode->children()
+            ->arrayNode('blacklist')->defaultValue(array())->prototype('scalar')->end();
 
 
         // Here you should define the parameters that are allowed to
