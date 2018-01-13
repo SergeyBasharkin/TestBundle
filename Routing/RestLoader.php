@@ -42,6 +42,8 @@ class RestLoader extends Loader
         $entityNames = $this->entityService->getListEntitiesNames();
         $regexpNames = $this->entityNamesToRequirements($entityNames);
 
+        var_dump($regexpNames);
+
         $pathRUD = '/{entity}/{id}';
         $pathCR ='/{entity}/';
         $requirements = array(
