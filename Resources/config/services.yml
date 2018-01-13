@@ -8,8 +8,6 @@ services:
     # if you need to do this, you can override this setting on individual services
     public: false
   Test\TestBundle\Routing\RestLoader:
-    autowire: false
-    autoconfigure: false
     tags: [routing.loader]
 #    test.example:
 #        class: Test\TestBundle\Example

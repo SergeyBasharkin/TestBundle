@@ -10,6 +10,7 @@ namespace Test\TestBundle\Service;
 
 
 use Psr\Container\ContainerInterface;
+use Symfony\Component\Routing\Router;
 
 class EntityService
 {
@@ -34,5 +35,12 @@ class EntityService
             $names[] = $pathArray[count($pathArray) -1];
         }
         return $names;
+    }
+
+    public function testRouter(){
+
+        /** @var Router $router */
+        $router = $this->container->get('router');
+        dump($router->getRouteCollection());
     }
 }

@@ -39,10 +39,10 @@ class RestLoader extends Loader
             throw new \RuntimeException('Do not add the "rest" loader twice');
         }
         $routes = new RouteCollection();
-        dump($this->entityService);
         $entityNames = $this->entityService->getListEntitiesNames();
         $regexpNames = $this->entityNamesToRequirements($entityNames);
 
+        $this->entityService->testRouter();
         $pathRUD = '/{entity}/{id}';
         $pathCR ='/{entity}/';
         $requirements = array(
