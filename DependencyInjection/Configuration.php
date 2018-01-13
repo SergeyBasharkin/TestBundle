@@ -23,9 +23,7 @@ class Configuration implements ConfigurationInterface
         $rootNode
             ->children()
                 ->arrayNode('blacklist')
-                    ->children()
-                        ->arrayNode('entity_name')
-                    ->end()
+                    ->defaultValue(array('blacklist' => array()))
                 ->end()
             ->end()
         ;
