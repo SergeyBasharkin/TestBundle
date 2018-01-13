@@ -65,6 +65,8 @@ class RestLoader extends Loader
 
             return $routes;
         }
+
+        return $routes;
     }
 
     /**
