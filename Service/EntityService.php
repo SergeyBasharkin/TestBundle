@@ -10,7 +10,7 @@ namespace Test\TestBundle\Service;
 
 
 use Doctrine\Bundle\DoctrineBundle\Registry;
-use Psr\Container\ContainerInterface;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Router;
 use Symfony\Component\Serializer\Encoder\JsonEncoder;
@@ -30,7 +30,7 @@ class EntityService
         $this->doctrine = $doctrine;
         $encoders = array(new XmlEncoder(), new JsonEncoder());
         $normalizers = array(new ObjectNormalizer());
-        $this->blacklist = $container->get("test_rest")['blacklist'];
+        $this->blacklist = $container->getParameter("test_rest")['blacklist'];
         $this->serializer = new Serializer($normalizers, $encoders);
     }
 
