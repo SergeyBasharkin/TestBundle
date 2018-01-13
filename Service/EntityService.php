@@ -40,7 +40,8 @@ class EntityService
         $metadata = $this->doctrine->getManager()->getMetadataFactory()->getAllMetadata();
         $names = array();
         foreach ($metadata as $classMetadata) {
-            dump(!in_array($classMetadata->getName(),$this->blacklist));
+            dump($this->blacklist);
+            dump($classMetadata->getName());
             $pathArray = explode("\\", $classMetadata->getName());
             if (!in_array($classMetadata->getName(),$this->blacklist)) $names[] = $pathArray[count($pathArray) - 1];
         }
