@@ -16,4 +16,5 @@ services:
     tags:
       - { name: kernel.event_listener, event: kernel.request }
   Test\TestBundle\Controller\DefaultController:
-    arguments: ['@entityService']
+    arguments: ['@EntityService']
+    tags: ['controller.service_arguments']
