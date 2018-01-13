@@ -34,7 +34,6 @@ class RouteMatchListener
     {
         $routes = $this->router->getRouteCollection()->all();
         $entitiesNames = $this->entityService->getListEntitiesNames();
-        if (!empty($entitiesNames)) {
             $routeCollisions = array();
             foreach ($routes as $key => $route) {
                 if ($key !== 'listEntitiesRoute' && $key !== 'entityRoute') {
@@ -48,7 +47,6 @@ class RouteMatchListener
                     }
                 }
             }
-        }
         if (!empty($routeCollisions)) {
             throw  new MultipleRouteException($routeCollisions);
         }
