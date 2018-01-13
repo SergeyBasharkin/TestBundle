@@ -38,7 +38,6 @@ class RouteMatchListener
         $routeCollisions = array();
         foreach ($routes as $key => $route) {
             if ($key !== 'listEntitiesRoute' && $key !== 'entityRoute') {
-                dump($route);
                 $explodedPath = Utils::parsePath($route->getPath());
                 if (count($explodedPath) >= 3) continue;
                 if (in_array($explodedPath[0], $entitiesNames)) {
@@ -49,6 +48,9 @@ class RouteMatchListener
                 }
             }
         }
-        if (!empty($routeCollisionsr)) throw  new MultipleRouteException($routeCollisions);
+        if (!empty($routeCollisionsr)) {
+            dump("error");
+            throw  new MultipleRouteException($routeCollisions);
+        }
     }
 }
