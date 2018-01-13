@@ -34,17 +34,18 @@ class RouteMatchListener
     {
         $routes = $this->router->getRouteCollection()->all();
         $entitiesNames = $this->entityService->getListEntitiesNames();
-        if (empty($entitiesNames)) return;
-        $routeCollisions = array();
-        foreach ($routes as $key => $route) {
-            if ($key !== 'listEntitiesRoute' && $key !== 'entityRoute') {
-                $explodedPath = Utils::parsePath($route->getPath());
-                if (count($explodedPath) >= 3) continue;
-                if (in_array($explodedPath[0], $entitiesNames)) {
-                    $routeCollisions[] = $route;
-                }
-                if (preg_match('/\{.*\}/', $explodedPath[0])) {
-                    $routeCollisions[] = $route;
+        if (!empty($entitiesNames)) {
+            $routeCollisions = array();
+            foreach ($routes as $key => $route) {
+                if ($key !== 'listEntitiesRoute' && $key !== 'entityRoute') {
+                    $explodedPath = Utils::parsePath($route->getPath());
+                    if (count($explodedPath) >= 3) continue;
+                    if (in_array($explodedPath[0], $entitiesNames)) {
+                        $routeCollisions[] = $route;
+                    }
+                    if (preg_match('/\{.*\}/', $explodedPath[0])) {
+                        $routeCollisions[] = $route;
+                    }
                 }
             }
         }
