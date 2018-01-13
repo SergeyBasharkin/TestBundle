@@ -18,7 +18,18 @@ class Configuration implements ConfigurationInterface
     public function getConfigTreeBuilder()
     {
         $treeBuilder = new TreeBuilder();
-        $rootNode = $treeBuilder->root('test');
+        $rootNode = $treeBuilder->root('rest_test');
+
+        $rootNode
+            ->children()
+                ->arrayNode('blacklist')
+                    ->children()
+                        ->arrayNode('entity_name')
+                    ->end()
+                ->end()
+            ->end()
+        ;
+
 
         // Here you should define the parameters that are allowed to
         // configure your bundle. See the documentation linked above for
