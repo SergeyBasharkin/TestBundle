@@ -21,7 +21,7 @@ class Configuration implements ConfigurationInterface
         $rootNode = $treeBuilder->root('test_rest');
 
         $rootNode->children()
-            ->arrayNode('blacklist')->defaultValue(array())->prototype('scalar')->end();
+            ->arrayNode('blacklist')->defaultValue(array())->prototype('scalar')->end()->end();
 
 
         // Here you should define the parameters that are allowed to
