@@ -44,8 +44,6 @@ class RestLoader extends Loader
 
         $regexpNames = $this->entityNamesToRequirements($entityNames);
 
-        var_dump($regexpNames);
-
         $pathRUD = '/{entity}/{id}';
         $pathCR ='/{entity}/';
         $requirements = array(
