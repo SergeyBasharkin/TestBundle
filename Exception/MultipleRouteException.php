@@ -14,8 +14,6 @@ use Symfony\Component\HttpKernel\Exception\HttpException;
 
 class MultipleRouteException extends HttpException
 {
-    private $routes;
-
     public function __construct(array $routes, \Exception $previous = null, array $headers = array(), $code = 0)
     {
         $message = 'collision in routes: '.json_encode($routes);

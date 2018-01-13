@@ -33,7 +33,7 @@ class RouteMatchListener
     public function onKernelRequest(GetResponseEvent $event)
     {
         $routes = $this->router->getRouteCollection()->all();
-        date($routes);
+        dump($routes);
         $entitiesNames = $this->entityService->getListEntitiesNames();
         $routeCollisions = array();
         foreach ($routes as $key => $route) {
