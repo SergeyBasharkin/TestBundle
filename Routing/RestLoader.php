@@ -40,31 +40,31 @@ class RestLoader extends Loader
         }
         $routes = new RouteCollection();
         $entityNames = $this->entityService->getListEntitiesNames();
-//        if (empty($entityNames)) return $routes;
-        var_dump(empty($entityNames));
-        $regexpNames = $this->entityNamesToRequirements($entityNames);
+        if (empty($entityNames)) {
+            $regexpNames = $this->entityNamesToRequirements($entityNames);
 
-        $pathRUD = '/{entity}/{id}';
-        $pathCR ='/{entity}/';
-        $requirements = array(
-            'id' => '\d+',
-            'entity' => $regexpNames
-        );
-        $defaultsRUD = array(
-            '_controller' => 'Test\TestBundle\Controller\DefaultController::indexAction'
-        );
-        $defaultsCR = array(
-            '_controller' => 'Test\TestBundle\Controller\DefaultController::listEntities'
-        );
+            $pathRUD = '/{entity}/{id}';
+            $pathCR = '/{entity}/';
+            $requirements = array(
+                'id' => '\d+',
+                'entity' => $regexpNames
+            );
+            $defaultsRUD = array(
+                '_controller' => 'Test\TestBundle\Controller\DefaultController::indexAction'
+            );
+            $defaultsCR = array(
+                '_controller' => 'Test\TestBundle\Controller\DefaultController::listEntities'
+            );
 
-        $routeRUD = new Route($pathRUD, $defaultsRUD, $requirements);
-        $routeCR = new Route($pathCR,$defaultsCR, $requirements);
-        $routes->add('entityRoute', $routeRUD);
-        $routes->add('listEntitiesRoute', $routeCR);
+            $routeRUD = new Route($pathRUD, $defaultsRUD, $requirements);
+            $routeCR = new Route($pathCR, $defaultsCR, $requirements);
+            $routes->add('entityRoute', $routeRUD);
+            $routes->add('listEntitiesRoute', $routeCR);
 
-        $this->loaded = true;
+            $this->loaded = true;
 
-        return $routes;
+            return $routes;
+        }
     }
 
     /**
