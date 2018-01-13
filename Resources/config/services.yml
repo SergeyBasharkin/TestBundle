@@ -15,3 +15,5 @@ services:
   Test\TestBundle\EventListener\RouteMatchListener:
     tags:
       - { name: kernel.event_listener, event: kernel.request }
+  Test\TestBundle\Controller\DefaultController:
+    arguments: ['@entityService']
