@@ -10,11 +10,7 @@ namespace Test\TestBundle\Routing;
 
 
 use Psr\Log\LoggerInterface;
-use SensioLabs\Security\Exception\RuntimeException;
-use Symfony\Component\Config\Exception\FileLoaderLoadException;
-use Symfony\Component\Config\FileLocatorInterface;
 use Symfony\Component\Config\Loader\Loader;
-use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\Routing\Route;
 use Symfony\Component\Routing\RouteCollection;
 use Test\TestBundle\Service\EntityService;
@@ -23,20 +19,16 @@ class RestLoader extends Loader
 {
 
     private $loaded = false;
-    private $container;
     private  $logger;
-    private $locator;
     private $entityService;
 
     /**
      * RestLoader constructor.
      * @param $container
      */
-    public function __construct(EntityService $entityService,ContainerInterface $container, LoggerInterface $logger, FileLocatorInterface $fileLocator)
+    public function __construct(EntityService $entityService, LoggerInterface $logger)
     {
         $this->logger=$logger;
-        $this->container = $container;
-        $this->locator = $fileLocator;
         $this->entityService = $entityService;
     }
 
