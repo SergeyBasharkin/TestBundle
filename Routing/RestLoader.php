@@ -40,7 +40,7 @@ class RestLoader extends Loader
         }
         $routes = new RouteCollection();
         $entityNames = $this->entityService->getListEntitiesNames();
-        if (empty($entityNames)) {
+        if (!empty($entityNames)) {
             $regexpNames = $this->entityNamesToRequirements($entityNames);
 
             $pathRUD = '/{entity}/{id}';
