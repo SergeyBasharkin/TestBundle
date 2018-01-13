@@ -40,6 +40,7 @@ class RestLoader extends Loader
         }
         $routes = new RouteCollection();
         $entityNames = $this->entityService->getListEntitiesNames();
+        var_dump(empty($entityNames));
         if (empty($entityNames)) {
             $entRoute = new Route(
                 '/ent_test_rest',
