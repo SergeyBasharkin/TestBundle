@@ -30,7 +30,7 @@ class EntityService
         $this->doctrine = $doctrine;
         $encoders = array(new XmlEncoder(), new JsonEncoder());
         $normalizers = array(new ObjectNormalizer());
-        $this->blacklist = $container->get('rest_test.blacklist');
+        $this->blacklist = $container->get('test.blacklist');
         $this->serializer = new Serializer($normalizers, $encoders);
     }
 
