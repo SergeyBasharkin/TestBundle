@@ -41,10 +41,9 @@ class EntityService
         $names = array();
         foreach ($metadata as $classMetadata) {
             $pathArray = explode("\\", $classMetadata->getName());
-            if (!in_array($classMetadata->getName(),$this->blacklist)) $names[] = $pathArray[count($pathArray) - 1];
+            $names[] = $pathArray[count($pathArray) - 1];
         }
-        var_dump($names);
-        var_dump($this->blacklist);
+        dump($this->blacklist);
         return $names;
     }
 
