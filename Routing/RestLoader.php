@@ -17,6 +17,7 @@ use Symfony\Component\Config\Loader\Loader;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\Routing\Route;
 use Symfony\Component\Routing\RouteCollection;
+use Test\TestBundle\Service\EntityService;
 
 class RestLoader extends Loader
 {
@@ -25,16 +26,18 @@ class RestLoader extends Loader
     private $container;
     private  $logger;
     private $locator;
+    private $entityService;
 
     /**
      * RestLoader constructor.
      * @param $container
      */
-    public function __construct(ContainerInterface $container, LoggerInterface $logger, FileLocatorInterface $fileLocator)
+    public function __construct(EntityService $entityService,ContainerInterface $container, LoggerInterface $logger, FileLocatorInterface $fileLocator)
     {
         $this->logger=$logger;
         $this->container = $container;
         $this->locator = $fileLocator;
+        $this->entityService = $entityService;
     }
 
 
@@ -44,11 +47,15 @@ class RestLoader extends Loader
             throw new \RuntimeException('Do not add the "rest" loader twice');
         }
         $routes = new RouteCollection();
+        dump($this->entityService);
+        $entityNames = $this->entityService->getListEntitiesNames();
+        $regexpNames = $this->entityNamesToRequirements($entityNames);
 
         $pathRUD = '/{entity}/{id}';
         $pathCR ='/{entity}/';
         $requirements = array(
             'id' => '\d+',
+            'entity' => $regexpNames
         );
         $defaultsRUD = array(
             '_controller' => 'Test\TestBundle\Controller\DefaultController::indexAction'
@@ -58,7 +65,7 @@ class RestLoader extends Loader
         );
 
         $routeRUD = new Route($pathRUD, $defaultsRUD, $requirements);
-        $routeCR = new Route($pathCR,$defaultsCR);
+        $routeCR = new Route($pathCR,$defaultsCR, $requirements);
         $routes->add('entityRoute', $routeRUD);
         $routes->add('listEntitiesRoute', $routeCR);
 
@@ -78,5 +85,14 @@ class RestLoader extends Loader
     public function supports($resource, $type = null)
     {
         return 'rest' == $type;
+    }
+
+    private function entityNamesToRequirements(array $names)
+    {
+        $requiremets = '';
+        foreach ($names as $name){
+            $requiremets.=$name.'|';
+        }
+        return substr($requiremets, 0, -1);
     }
 }
